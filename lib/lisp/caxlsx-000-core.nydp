@@ -1,0 +1,19 @@
+(chapter-start 'caxlsx "core caxlsx functions and macros")
+
+(assign xls-dsl {})
+
+(def xls-dsl.sheet (name . body)
+  `(let xls-worksheet (xls/worksheet/new xls-package ,name)
+     ,@body))
+
+(def xls-dsl.style (rules)
+  `(xls/style/new xls-package ,rules))
+
+(def xls-dsl.row (items options)
+  (if options
+      `(xls/row/new xls-worksheet ,items ,options)
+      `(xls/row/new xls-worksheet ,items)))
+
+(mac xls workbooks
+  `(returnlet xls-package (xls/package/new)
+     ,@(pre-compile-each xls-dsl workbooks)))
