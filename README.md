@@ -1,6 +1,6 @@
 # Nydp::Caxlsx
 
-This gem provides a nydp wrapper for the @caxlsx@ gem, allowing you finally generate excel (or libreoffice) spreadsheets from lisp!! The future has arrived!
+This gem provides a nydp wrapper for the [`caxlsx`]https://github.com/caxlsx/caxlsx gem, allowing you finally generate excel (or libreoffice) spreadsheets from lisp!! The future has arrived!
 
 
 ## Installation
