@@ -1,6 +1,6 @@
 # Nydp::Caxlsx
 
-This gem provides a nydp wrapper for the [`caxlsx`]https://github.com/caxlsx/caxlsx gem, allowing you finally generate excel (or libreoffice) spreadsheets from lisp!! The future has arrived!
+This gem provides a nydp wrapper for the [`caxlsx`](https://github.com/caxlsx/caxlsx) gem, allowing you finally generate excel (or libreoffice) spreadsheets from lisp!! The future has arrived!
 
 
 ## Installation
@@ -24,7 +24,7 @@ Or install it yourself as:
 ```lisp
   (xls
     (sheet "big sheet"
-      (let s0 (style {})
+      (let s0 (style { b t bg_color "FFCCFFDD" })
        (each item items
          (row (list item.created_at
                     item.name
@@ -32,10 +32,8 @@ Or install it yourself as:
                     item.lorentz_factor
                     item.wave_function
                     item.polarity)
-              { style (list s0 s1 s2 s3 s4 s5) })))))
+              { style s0 })))))
 ```
-
-TODO: Write usage instructions here
 
 ## Development
 
@@ -45,7 +43,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/nydp-caxlsx. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/conanite/nydp-caxlsx. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
@@ -53,4 +51,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the Nydp::Caxlsx project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/nydp-caxlsx/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the Nydp::Caxlsx project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/conanite/nydp-caxlsx/blob/master/CODE_OF_CONDUCT.md).
