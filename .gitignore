@@ -8,5 +8,6 @@
 /tmp/
 test-result.xlsx
 
-# rspec failure tracking
 .rspec_status
+.#*
+*.gem
