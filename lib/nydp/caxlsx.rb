@@ -27,10 +27,11 @@ module Nydp
       end
 
       def setup ns
-        Nydp::Symbol.mk("xls/package/new"   , ns).assign(Nydp::Caxlsx::Builtin::NewPackage.instance)
-        Nydp::Symbol.mk("xls/worksheet/new" , ns).assign(Nydp::Caxlsx::Builtin::NewWorksheet.instance)
-        Nydp::Symbol.mk("xls/row/new"       , ns).assign(Nydp::Caxlsx::Builtin::NewRow.instance)
-        Nydp::Symbol.mk("xls/style/new"     , ns).assign(Nydp::Caxlsx::Builtin::NewStyle.instance)
+        Nydp::Symbol.mk("xls/package/new"            , ns).assign(Nydp::Caxlsx::Builtin::NewPackage.instance)
+        Nydp::Symbol.mk("xls/worksheet/new"          , ns).assign(Nydp::Caxlsx::Builtin::NewWorksheet.instance)
+        Nydp::Symbol.mk("xls/worksheet/column-widths", ns).assign(Nydp::Caxlsx::Builtin::SetColumnWidths.instance)
+        Nydp::Symbol.mk("xls/row/new"                , ns).assign(Nydp::Caxlsx::Builtin::NewRow.instance)
+        Nydp::Symbol.mk("xls/style/new"              , ns).assign(Nydp::Caxlsx::Builtin::NewStyle.instance)
       end
     end
 
@@ -57,6 +58,13 @@ module Nydp
 
         def builtin_invoke_4 vm, sheet, values, options
           vm.push_arg sheet.add_row(n2r(values), n2r(options))
+        end
+      end
+
+      class SetColumnWidths
+        include Nydp::Builtin::Base, Singleton
+        def builtin_invoke_3 vm, sheet, values
+          vm.push_arg sheet.column_widths(n2r(values))
         end
       end
 

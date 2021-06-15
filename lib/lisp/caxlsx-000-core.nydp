@@ -3,16 +3,22 @@
 (assign xls-dsl {})
 
 (def xls-dsl.sheet (name . body)
-  `(let xls-worksheet (xls/worksheet/new xls-package ,name)
+  `(with (xls-worksheet (xls/worksheet/new xls-package ,name)
+          xls-row-number 1)
      ,@body))
 
 (def xls-dsl.style (rules)
   `(xls/style/new xls-package ,rules))
 
 (def xls-dsl.row (items options)
-  (if options
-      `(xls/row/new xls-worksheet ,items ,options)
-      `(xls/row/new xls-worksheet ,items)))
+  `(do
+     ,(if options
+        `(xls/row/new xls-worksheet ,items ,options)
+        `(xls/row/new xls-worksheet ,items))
+     (++ xls-row-number)))
+
+(def xls-dsl.column-widths (widths)
+  `(xls/worksheet/column-widths xls-worksheet widths))
 
 (mac xls workbooks
   `(returnlet xls-package (xls/package/new)
