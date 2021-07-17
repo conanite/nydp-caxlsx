@@ -39,39 +39,45 @@ module Nydp
       class NewPackage
         include Nydp::Builtin::Base, Singleton
         def builtin_invoke_1 vm
-          vm.push_arg Axlsx::Package.new
+          # vm.push_arg Axlsx::Package.new
+          Axlsx::Package.new
         end
       end
 
       class NewWorksheet
         include Nydp::Builtin::Base, Singleton
         def builtin_invoke_3 vm, package, name
-          vm.push_arg package.workbook.add_worksheet(name.is_a?(Hash) ? n2r(name) :  { name: n2r(name) })
+          # vm.push_arg package.workbook.add_worksheet(name.is_a?(Hash) ? n2r(name) :  { name: n2r(name) })
+          package.workbook.add_worksheet(name.is_a?(Hash) ? n2r(name) :  { name: n2r(name) })
         end
       end
 
       class NewRow
         include Nydp::Builtin::Base, Singleton
         def builtin_invoke_3 vm, sheet, values
-          vm.push_arg sheet.add_row(n2r(values))
+          # vm.push_arg sheet.add_row(n2r(values))
+          sheet.add_row(n2r(values))
         end
 
         def builtin_invoke_4 vm, sheet, values, options
-          vm.push_arg sheet.add_row(n2r(values), n2r(options))
+          # vm.push_arg sheet.add_row(n2r(values), n2r(options))
+          sheet.add_row(n2r(values), n2r(options))
         end
       end
 
       class SetColumnWidths
         include Nydp::Builtin::Base, Singleton
         def builtin_invoke_3 vm, sheet, values
-          vm.push_arg sheet.column_widths(n2r(values))
+          # vm.push_arg sheet.column_widths(n2r(values))
+          sheet.column_widths(n2r(values))
         end
       end
 
       class NewStyle
         include Nydp::Builtin::Base, Singleton
         def builtin_invoke_3 vm, package, rules
-          vm.push_arg package.workbook.styles.add_style(n2r(rules))
+          # vm.push_arg package.workbook.styles.add_style(n2r(rules))
+          package.workbook.styles.add_style(n2r(rules))
         end
       end
     end
