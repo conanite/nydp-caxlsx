@@ -7,7 +7,7 @@
 /spec/reports/
 /tmp/
 test-result.xlsx
-
+Gemfile.lock
 .rspec_status
 .#*
 *.gem
