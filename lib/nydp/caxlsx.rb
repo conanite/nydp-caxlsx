@@ -27,18 +27,18 @@ module Nydp
       end
 
       def setup ns
-        Nydp::Symbol.mk("xls/package/new"            , ns).assign(Nydp::Caxlsx::Builtin::NewPackage.instance)
-        Nydp::Symbol.mk("xls/worksheet/new"          , ns).assign(Nydp::Caxlsx::Builtin::NewWorksheet.instance)
-        Nydp::Symbol.mk("xls/worksheet/column-widths", ns).assign(Nydp::Caxlsx::Builtin::SetColumnWidths.instance)
-        Nydp::Symbol.mk("xls/row/new"                , ns).assign(Nydp::Caxlsx::Builtin::NewRow.instance)
-        Nydp::Symbol.mk("xls/style/new"              , ns).assign(Nydp::Caxlsx::Builtin::NewStyle.instance)
+        ns.assign("xls/package/new"            , Nydp::Caxlsx::Builtin::NewPackage.instance      )
+        ns.assign("xls/worksheet/new"          , Nydp::Caxlsx::Builtin::NewWorksheet.instance    )
+        ns.assign("xls/worksheet/column-widths", Nydp::Caxlsx::Builtin::SetColumnWidths.instance )
+        ns.assign("xls/row/new"                , Nydp::Caxlsx::Builtin::NewRow.instance          )
+        ns.assign("xls/style/new"              , Nydp::Caxlsx::Builtin::NewStyle.instance        )
       end
     end
 
     module Builtin
       class NewPackage
         include Nydp::Builtin::Base, Singleton
-        def builtin_invoke_1 vm
+        def call
           # vm.push_arg Axlsx::Package.new
           Axlsx::Package.new
         end
@@ -46,38 +46,43 @@ module Nydp
 
       class NewWorksheet
         include Nydp::Builtin::Base, Singleton
-        def builtin_invoke_3 vm, package, name
-          # vm.push_arg package.workbook.add_worksheet(name.is_a?(Hash) ? n2r(name) :  { name: n2r(name) })
-          package.workbook.add_worksheet(name.is_a?(Hash) ? n2r(name) :  { name: n2r(name) })
+        # def builtin_invoke_3 vm, package, name
+        def call package, name
+          # vm.push_arg package.workbook.add_worksheet(name.is_a?(Hash) ? rubify(name) :  { name: rubify(name) })
+          package.workbook.add_worksheet(name.is_a?(Hash) ? rubify(name) :  { name: rubify(name) })
         end
       end
 
       class NewRow
         include Nydp::Builtin::Base, Singleton
-        def builtin_invoke_3 vm, sheet, values
-          # vm.push_arg sheet.add_row(n2r(values))
-          sheet.add_row(n2r(values))
+        # def builtin_invoke_3 vm, sheet, values
+        def call sheet, values
+          # vm.push_arg sheet.add_row(rubify(values))
+          sheet.add_row(rubify(values))
         end
 
-        def builtin_invoke_4 vm, sheet, values, options
-          # vm.push_arg sheet.add_row(n2r(values), n2r(options))
-          sheet.add_row(n2r(values), n2r(options))
+        # def builtin_invoke_4 vm, sheet, values, options
+        def call sheet, values, options={}
+          # vm.push_arg sheet.add_row(rubify(values), rubify(options))
+          sheet.add_row(rubify(values), rubify(options))
         end
       end
 
       class SetColumnWidths
         include Nydp::Builtin::Base, Singleton
-        def builtin_invoke_3 vm, sheet, values
-          # vm.push_arg sheet.column_widths(n2r(values))
-          sheet.column_widths(n2r(values))
+        # def builtin_invoke_3 vm, sheet, values
+        def call sheet, values
+          # vm.push_arg sheet.column_widths(rubify(values))
+          sheet.column_widths(rubify(values))
         end
       end
 
       class NewStyle
         include Nydp::Builtin::Base, Singleton
-        def builtin_invoke_3 vm, package, rules
-          # vm.push_arg package.workbook.styles.add_style(n2r(rules))
-          package.workbook.styles.add_style(n2r(rules))
+        # def builtin_invoke_3 vm, package, rules
+        def call package, rules
+          # vm.push_arg package.workbook.styles.add_style(rubify(rules))
+          package.workbook.styles.add_style(rubify(rules))
         end
       end
     end
