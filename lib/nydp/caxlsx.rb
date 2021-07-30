@@ -8,22 +8,20 @@ module Nydp
     class Error < StandardError; end
 
     class Plugin
-      def name ; "nydp/caxlsx plugin" ; end
+      include Nydp::PluginHelper
 
-      def relative_path name
-        File.expand_path(File.join File.dirname(__FILE__), name)
-      end
+      def name ; "nydp/caxlsx plugin" ; end
 
       def base_path ; relative_path "../lisp/" ; end
 
       def load_rake_tasks ; end
 
       def loadfiles
-        Dir.glob(relative_path '../lisp/caxlsx-*.nydp').sort
+        file_readers Dir.glob(relative_path '../lisp/caxlsx-*.nydp').sort
       end
 
       def testfiles
-        Dir.glob(relative_path '../lisp/tests/**/*.nydp')
+        file_readers Dir.glob(relative_path '../lisp/tests/**/*.nydp')
       end
 
       def setup ns
