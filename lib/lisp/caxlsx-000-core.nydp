@@ -22,4 +22,4 @@
 
 (mac xls workbooks
   `(returnlet xls-package (xls/package/new)
-     ,@(pre-compile-each xls-dsl workbooks)))
+     ,@(pre-compile-each xls-dsl (map pre-compile workbooks))))
